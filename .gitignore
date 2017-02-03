@@ -1,0 +1,10 @@
+#Files
+.project
+.settings
+.classpath
+velocity.log
+
+#Directories
+*/target/**
+*/.settings/**
+*/bin/**

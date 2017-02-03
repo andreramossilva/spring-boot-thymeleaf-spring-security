@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Error page</title>
+	<meta charset="utf-8" />
+</head>
+<body>
+	<h1>Home</h1>
+	<div sec:authorize="isAuthenticated()">This content is only shown
+		to authenticated users.
+	</div>
+	<div sec:authorize="hasRole('ROLE_ADMIN')">This content is only
+		shown to administrators.
+	</div>
+	<div sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')">This
+		content is only shown to users and administrators.
+	</div>
+	<div sec:authorize="hasRole('ROLE_USER')">This content is only
+		shown to users.
+	</div>
+</body>
+</html>
