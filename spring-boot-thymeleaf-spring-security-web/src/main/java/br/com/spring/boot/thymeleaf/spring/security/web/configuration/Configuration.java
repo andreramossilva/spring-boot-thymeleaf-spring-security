@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.com.spring.boot.thymeleaf.spring.security.core.entities.User;
+import br.com.spring.boot.thymeleaf.spring.security.core.enums.RoleEnum;
 import br.com.spring.boot.thymeleaf.spring.security.core.repository.UserRepository;
 import br.com.spring.boot.thymeleaf.spring.security.core.repository.impl.UserRepositoryImpl;
 import br.com.spring.boot.thymeleaf.spring.security.core.service.UserService;
@@ -40,8 +41,9 @@ public class Configuration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers(HomeActionConstants.HOME_ACTION).permitAll()
-		.and().formLogin();
+		.antMatchers(HomeActionConstants.HOME_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
+//		.and().formLogin();
+		.and().formLogin().loginPage("/login").permitAll();
 	}
 	
 }
