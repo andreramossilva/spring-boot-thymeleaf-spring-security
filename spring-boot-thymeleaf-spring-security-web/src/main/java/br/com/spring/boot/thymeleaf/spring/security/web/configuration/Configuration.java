@@ -19,6 +19,8 @@ import br.com.spring.boot.thymeleaf.spring.security.core.repository.impl.UserRep
 import br.com.spring.boot.thymeleaf.spring.security.core.service.UserService;
 import br.com.spring.boot.thymeleaf.spring.security.core.service.impl.UserServiceImpl;
 import br.com.spring.boot.thymeleaf.spring.security.web.constants.action.HomeActionConstants;
+import br.com.spring.boot.thymeleaf.spring.security.web.constants.action.LoginActionConstants;
+import br.com.spring.boot.thymeleaf.spring.security.web.constants.action.LogoutActionConstants;
 import br.com.spring.boot.thymeleaf.spring.security.web.controller.HomeController;
 
 @SpringBootApplication
@@ -43,8 +45,8 @@ public class Configuration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers(HomeActionConstants.HOME_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
-		.and().formLogin().loginPage("/login").permitAll()
-		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+		.and().formLogin().loginPage(LoginActionConstants.LOGIN_ACTION).permitAll()
+		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher(LogoutActionConstants.LOGIN_ACTION));
 	}
 	
 }
