@@ -46,7 +46,7 @@ public class Configuration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers(HomeActionConstants.HOME_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
 		.and().formLogin().loginPage(LoginActionConstants.LOGIN_ACTION).permitAll()
-		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher(LogoutActionConstants.LOGIN_ACTION));
+		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher(LogoutActionConstants.LOGOUT_ACTION));
 	}
 	
 }
