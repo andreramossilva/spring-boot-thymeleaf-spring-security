@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Usuários</title>
+</head>
+<body>
+
+    <form action="user" method="POST">
+    
+		<input type="hidden" th:name="${_csrf.parameterName}" 
+	           th:value="${_csrf.token}" />
+	                   
+        <label>Nome</label>
+        <input type="text" th:field="*{user.name}"  maxlength="256" th:errorclass="fieldError" />
+        <p th:if="${#fields.hasErrors('user.name')}" th:errors="*{user.name}"></p>
+        
+        <label>Email</label>
+        <input type="text" th:field="*{user.email}"  maxlength="128" th:errorclass="fieldError" />
+        <p th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}"></p>
+        
+        <label>CPF/CNPJ</label>
+        <input type="text" th:field="*{user.federalId}"  maxlength="14" th:errorclass="fieldError" />
+        <p th:if="${#fields.hasErrors('user.federalId')}" th:errors="*{user.federalId}"></p>
+        
+        <label>Senha</label>
+        <input type="password" th:field="*{user.password}"  maxlength="20" th:errorclass="fieldError" />
+        <p th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}"></p>
+        
+        <label>Confirme sua senha</label>
+        <input type="password" th:field="*{user.confirmPassword}"  maxlength="20" th:errorclass="fieldError" />
+        <p th:if="${#fields.hasErrors('user.confirmPassword')}" th:errors="*{user.confirmPassword}"></p>
+        
+        <button type="submit">Salvar</button>
+
+    </form>
+</body>
+</html>

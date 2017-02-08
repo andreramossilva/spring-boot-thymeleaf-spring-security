@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,12 +26,21 @@ public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-
-	@Column(name="email", nullable=false, length=128)
+	
+	@Column(name="name", nullable=false, length=256)
+	private String name;
+	
+	@Column(name="federal_id", nullable=false, length=14, unique=true)
+	private String federalId;
+	
+	@Column(name="email", nullable=false, length=128, unique=true)
 	private String email;
 	
 	@Column(name="password", nullable=false, length=60)
 	private String password;
+	
+	@Transient
+	private String confirmPassword;
 	
 	@OneToMany(fetch=FetchType.EAGER)
 	private List<Role> roles = new ArrayList<>();
@@ -43,6 +53,10 @@ public class User implements UserDetails {
 	@Override
 	public String getPassword() {
 		return password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override
@@ -68,6 +82,54 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name.trim();
+	}
+
+	public String getFederalId() {
+		return federalId;
+	}
+
+	public void setFederalId(String federalId) {
+		this.federalId = federalId.trim();
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email.trim();
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 	
 }

@@ -14,6 +14,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<stella.version>2.1.2</stella.version>
 	</properties>
 
 	<modules>
