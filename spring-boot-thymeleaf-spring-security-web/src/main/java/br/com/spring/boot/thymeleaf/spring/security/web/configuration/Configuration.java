@@ -18,12 +18,10 @@ import br.com.spring.boot.thymeleaf.spring.security.core.repository.UserReposito
 import br.com.spring.boot.thymeleaf.spring.security.core.repository.impl.UserRepositoryImpl;
 import br.com.spring.boot.thymeleaf.spring.security.core.service.UserService;
 import br.com.spring.boot.thymeleaf.spring.security.core.service.impl.UserServiceImpl;
-import br.com.spring.boot.thymeleaf.spring.security.web.constants.action.HomeActionConstants;
 import br.com.spring.boot.thymeleaf.spring.security.web.constants.action.LoginActionConstants;
 import br.com.spring.boot.thymeleaf.spring.security.web.constants.action.LogoutActionConstants;
 import br.com.spring.boot.thymeleaf.spring.security.web.constants.action.UserActionConstants;
 import br.com.spring.boot.thymeleaf.spring.security.web.controller.HomeController;
-import br.com.spring.boot.thymeleaf.spring.security.web.validation.UserValidation;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackageClasses=UserRepository.class)
@@ -46,8 +44,6 @@ public class Configuration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		
-		.antMatchers(HomeActionConstants.HOME_ACTION).permitAll()
 		
 		.antMatchers(UserActionConstants.USER_ROOT_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
 		
