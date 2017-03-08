@@ -10,9 +10,10 @@ import org.springframework.security.core.GrantedAuthority;
 @Table(name="role")
 public class Role implements GrantedAuthority {
 
+	private static final long serialVersionUID = 5521697581691999052L;
+	
 	@Id
 	private String description;
-	private static final long serialVersionUID = 5521697581691999052L;
 	
 	@Override
 	public String getAuthority() {

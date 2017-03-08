@@ -1,8 +1,8 @@
 package br.com.spring.boot.thymeleaf.spring.security.core.entities;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -39,8 +41,11 @@ public class User implements UserDetails {
 	@Transient
 	private String confirmPassword;
 	
-	@OneToMany(fetch=FetchType.EAGER)
-	private List<Role> roles = new ArrayList<>();
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "user_roles", 
+			joinColumns = @JoinColumn(name = "user_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "roles_description", nullable = false, updatable = false))
+	private Set<Role> roles = new HashSet<>();
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -113,11 +118,11 @@ public class User implements UserDetails {
 		this.confirmPassword = confirmPassword;
 	}
 
-	public List<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 	

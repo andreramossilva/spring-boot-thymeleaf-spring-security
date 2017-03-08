@@ -47,6 +47,7 @@ public class Configuration extends WebSecurityConfigurerAdapter {
 		
 		.antMatchers(UserActionConstants.ROOT_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
 		.antMatchers(UserActionConstants.ADD_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
+		.antMatchers(UserActionConstants.EDIT_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
 		
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage(LoginActionConstants.LOGIN_ACTION).permitAll()

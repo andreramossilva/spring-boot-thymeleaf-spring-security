@@ -12,10 +12,11 @@
 	<div th:replace="fragments/layout :: menu"></div>
 	
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		<h2 class="sub-header">Novo usuário</h2>
+		<h2 class="sub-header">Usuário</h2>
 	    <form action="/user" method="POST" class="form-horizontal">
 	    
 	    	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+	    	<input type="hidden" th:field="*{user.id}" th:value="${user.id}" />
 	    	
 	    	<div class="form-group">
 	    		<label for="name" class="col-sm-2 control-label">Nome</label>
@@ -57,9 +58,9 @@
 	    		<label class="col-sm-2 control-label">Permissões</label>
 	    		<div class="col-sm-10">
 		    		<div class="checkbox">
-						<label class="checkbox-list" th:each="role : ${T(br.com.spring.boot.thymeleaf.spring.security.core.enums.RoleEnum).values()}">
+						<label class="checkbox-list" th:each="role : ${roles}">
 							<span style="margin-right:15px">
-								<input type="checkbox" th:text="${role.value}" th:value="${role}" name="roles"/>
+								<input type="checkbox" th:field="*{user.roles}" th:text="${role.description}" th:value="${role.description}"/>
 							</span>
 						</label>
 					</div>

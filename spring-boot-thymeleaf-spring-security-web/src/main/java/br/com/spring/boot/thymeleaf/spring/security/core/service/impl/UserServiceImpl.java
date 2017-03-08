@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import br.com.spring.boot.thymeleaf.spring.security.core.entities.User;
 import br.com.spring.boot.thymeleaf.spring.security.core.repository.UserRepository;
@@ -26,7 +27,12 @@ public class UserServiceImpl implements UserService {
 	public UserDetails loadUserByUsername(String email) {
 		return (UserDetails) userRepository.findByEmail(email); 
 	}
-
+		
+	@Override
+	public User findById(Integer id){
+		return userRepository.findOne(id);
+	}
+	
 	@Override
 	public List<User> findAll() {
 		return (List<User>) userRepository.findAll();
@@ -37,10 +43,7 @@ public class UserServiceImpl implements UserService {
 		try{
 			
 			validate(user);
-			
-			BCryptPasswordEncoder crypt = new BCryptPasswordEncoder();
-			user.setPassword(crypt.encode(user.getPassword()));
-			
+			configPassword(user);
 			userRepository.save(user);
 			
 		} catch (ValidationException e) {
@@ -50,15 +53,29 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	private void configPassword(User user) {
+		if(user.getId() == null || !StringUtils.isEmptyOrWhitespace(user.getPassword())){
+			BCryptPasswordEncoder crypt = new BCryptPasswordEncoder();
+			user.setPassword(crypt.encode(user.getPassword()));
+		} else {
+			User u = findById(user.getId());
+			user.setPassword(u.getPassword());
+		}
+	}
+
 	@Override
 	public User findByEmail(String email) {
 		return (User) userRepository.findByEmail(email);
 	}
 	
 	private void validate(User user) throws ValidationException {
-		User validateUser = findByEmail(user.getEmail());
-		if(validateUser  != null){
-			throw new ValidationException("email", "field.invalid.user.email.exists");
+		
+		if(user.getId() == null){
+			User validateUser = findByEmail(user.getEmail());
+			if(validateUser  != null){
+				throw new ValidationException("email", "field.invalid.user.email.exists");
+			}
+		
 		}
 	}
 

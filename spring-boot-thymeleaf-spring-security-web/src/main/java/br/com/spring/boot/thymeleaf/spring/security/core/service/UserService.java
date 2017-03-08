@@ -14,4 +14,5 @@ public interface UserService extends UserDetailsService {
 	List<User> findAll();
 	void save(User user) throws ServiceException, ValidationException;
 	User findByEmail(String email);
+	User findById(Integer id);
 }

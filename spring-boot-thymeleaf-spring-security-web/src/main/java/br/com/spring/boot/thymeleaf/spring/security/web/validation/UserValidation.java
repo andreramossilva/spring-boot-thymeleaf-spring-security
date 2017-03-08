@@ -3,6 +3,7 @@ package br.com.spring.boot.thymeleaf.spring.security.web.validation;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+import org.thymeleaf.util.StringUtils;
 
 import br.com.spring.boot.thymeleaf.spring.security.core.entities.User;
 
@@ -58,11 +59,13 @@ public class UserValidation implements Validator {
 //	}
 	
 	private void password(){
-		isValid(user.getPassword(), FiledsName.PASSWORD, FieldsLengthEnum._60);
-		isValid(user.getConfirmPassword(), FiledsName.CONFIRM_PASSWORD, FieldsLengthEnum._60);
-		
-		if(user.getPassword() != null && user.getConfirmPassword() != null && !user.getPassword().equals(user.getConfirmPassword())){
-			errors.rejectValue(FiledsName.CONFIRM_PASSWORD, "field.invalid.user.password.confirmation");
+		if(user.getId() == null || !StringUtils.isEmptyOrWhitespace(user.getPassword())){
+			isValid(user.getPassword(), FiledsName.PASSWORD, FieldsLengthEnum._60);
+			isValid(user.getConfirmPassword(), FiledsName.CONFIRM_PASSWORD, FieldsLengthEnum._60);
+			
+			if(user.getPassword() != null && user.getConfirmPassword() != null && !user.getPassword().equals(user.getConfirmPassword())){
+				errors.rejectValue(FiledsName.CONFIRM_PASSWORD, "field.invalid.user.password.confirmation");
+			}
 		}
 		
 	}
