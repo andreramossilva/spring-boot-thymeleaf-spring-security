@@ -1,5 +1,7 @@
 package br.com.spring.boot.thymeleaf.spring.security.web.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ import br.com.spring.boot.thymeleaf.spring.security.web.constants.html.UserHtmlC
 import br.com.spring.boot.thymeleaf.spring.security.web.validation.UserValidation;
 
 @Controller
-@RequestMapping(value=UserActionConstants.USER_ROOT_ACTION)
+@RequestMapping(value=UserActionConstants.ROOT_ACTION)
 public class UserController {
 	
 	@Autowired
@@ -32,6 +34,14 @@ public class UserController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
+	public ModelAndView list(){
+		ModelAndView model = new ModelAndView(UserHtmlConstants.LIST);
+		List<User> users = userService.findAll();
+		model.addObject("users", users);
+		return model;
+	}
+	
+	@RequestMapping(value=UserActionConstants.ADD_ACTION, method=RequestMethod.GET)
 	public ModelAndView add(User user){
 		ModelAndView model = new ModelAndView(UserHtmlConstants.USER);
 		return model;
@@ -40,19 +50,20 @@ public class UserController {
 	@RequestMapping(method=RequestMethod.POST)
 	public ModelAndView save(@Valid User user, BindingResult result){
 		
-		ModelAndView model = new ModelAndView(UserHtmlConstants.USER);
-		
 		if(!result.hasErrors()){
 			try {
 				userService.save(user);
-			} catch (ServiceException e) {
-				e.printStackTrace();
+				return list();
 			} catch (ValidationException e) {
 				result.rejectValue(e.getField() , e.getMessage());
+				return new ModelAndView(UserHtmlConstants.USER);
+			} catch (ServiceException e) {
+				return new ModelAndView(UserHtmlConstants.USER);
 			}
+		} else {
+			return new ModelAndView(UserHtmlConstants.USER);
 		}
 		
-		return model;
 	}
 	
 }

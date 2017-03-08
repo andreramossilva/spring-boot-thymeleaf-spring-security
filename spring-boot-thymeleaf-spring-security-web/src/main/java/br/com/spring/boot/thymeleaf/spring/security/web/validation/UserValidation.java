@@ -4,8 +4,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import br.com.caelum.stella.validation.CPFValidator;
-import br.com.caelum.stella.validation.InvalidStateException;
 import br.com.spring.boot.thymeleaf.spring.security.core.entities.User;
 
 public class UserValidation implements Validator {
@@ -26,7 +24,6 @@ public class UserValidation implements Validator {
 		
 		name();
 		email();
-		cpf();
 		password();
 		
 	}
@@ -46,19 +43,19 @@ public class UserValidation implements Validator {
 		
 	}
 	
-	private void cpf(){
-		
-		isValid(user.getFederalId(), FiledsName.FEDERAL_ID, FieldsLengthEnum._14);
-		
-		CPFValidator validator = new CPFValidator();
-		
-		try{
-			validator.assertValid(user.getFederalId());
-		} catch (InvalidStateException e) { 
-			errors.rejectValue(FiledsName.FEDERAL_ID, "field.invalid.user.federal.id");
-		}
-		
-	}
+//	private void cpf(){
+//		
+//		isValid(user.getFederalId(), FiledsName.FEDERAL_ID, FieldsLengthEnum._14);
+//		
+//		CPFValidator validator = new CPFValidator();
+//		
+//		try{
+//			validator.assertValid(user.getFederalId());
+//		} catch (InvalidStateException e) { 
+//			errors.rejectValue(FiledsName.FEDERAL_ID, "field.invalid.user.federal.id");
+//		}
+//		
+//	}
 	
 	private void password(){
 		isValid(user.getPassword(), FiledsName.PASSWORD, FieldsLengthEnum._60);

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headerFragment(pageTitle='Usuários')">
+</head>
+<body>
+
+	<div th:replace="fragments/layout :: head"></div>
+	<div th:replace="fragments/layout :: menu"></div>
+	
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<h2 class="sub-header">Lista de usuários</h2>
+		<div class="head-list-button">
+			<a class="btn btn-primary" href="/user/add">Novo usuário</a>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-striped table-hover">
+				<tr>
+				    <th>Nome</th>
+				    <th>E-mail</th>
+				    <th></th>
+			    </tr>
+			    <tr th:each="user : ${users}">
+			        <td th:text="${user.name}"></td>
+			        <td th:text="${user.email}"></td>
+			        <td><span class="glyphicon glyphicon-pencil cursor-pointer" aria-hidden="true"></span></td>
+			    </tr>
+			</table>
+		</div>
+	</div>
+	
+    <div th:replace="fragments/layout :: footerFragment"></div>
+    
+</body>
+</html>

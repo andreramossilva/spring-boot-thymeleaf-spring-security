@@ -30,9 +30,6 @@ public class User implements UserDetails {
 	@Column(name="name", nullable=false, length=256)
 	private String name;
 	
-	@Column(name="federal_id", nullable=false, length=14, unique=true)
-	private String federalId;
-	
 	@Column(name="email", nullable=false, length=128, unique=true)
 	private String email;
 	
@@ -98,14 +95,6 @@ public class User implements UserDetails {
 
 	public void setName(String name) {
 		this.name = name.trim();
-	}
-
-	public String getFederalId() {
-		return federalId;
-	}
-
-	public void setFederalId(String federalId) {
-		this.federalId = federalId.trim();
 	}
 
 	public String getEmail() {

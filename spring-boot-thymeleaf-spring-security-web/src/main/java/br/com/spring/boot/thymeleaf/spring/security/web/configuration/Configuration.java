@@ -45,7 +45,8 @@ public class Configuration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		
-		.antMatchers(UserActionConstants.USER_ROOT_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
+		.antMatchers(UserActionConstants.ROOT_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
+		.antMatchers(UserActionConstants.ADD_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
 		
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage(LoginActionConstants.LOGIN_ACTION).permitAll()
@@ -54,3 +55,4 @@ public class Configuration extends WebSecurityConfigurerAdapter {
 	}
 	
 }
+

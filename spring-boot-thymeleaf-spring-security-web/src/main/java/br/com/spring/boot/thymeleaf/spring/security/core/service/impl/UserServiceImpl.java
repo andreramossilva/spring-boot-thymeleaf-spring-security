@@ -51,23 +51,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findByFederalId(String federalId) {
-		return userRepository.findByFederalId(federalId);
-	}
-
-	@Override
 	public User findByEmail(String email) {
 		return (User) userRepository.findByEmail(email);
 	}
 	
 	private void validate(User user) throws ValidationException {
-		User u = findByFederalId(user.getFederalId());
-		if(u  != null){
-			throw new ValidationException("federalId", "field.invalid.user.federal.id.exists.personal");
-		}
-		
-		u = findByEmail(user.getEmail());
-		if(u  != null){
+		User validateUser = findByEmail(user.getEmail());
+		if(validateUser  != null){
 			throw new ValidationException("email", "field.invalid.user.email.exists");
 		}
 	}
