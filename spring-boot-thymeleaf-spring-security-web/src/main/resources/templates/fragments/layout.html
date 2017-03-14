@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="headerFragment(pageTitle)">
+	<meta charset="UTF-8"/>
 	<title th:text="${pageTitle}"></title>
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 	<link rel="stylesheet" th:href="@{/css/dashboard.css}" />
@@ -22,7 +23,14 @@
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li th:classappend="@{${#httpServletRequest.requestURI}} == '/user' ? active"><a href="/user">Usuários</a></li>
+					<li th:classappend="${model} == 'user' ? active"><a href="/user">Usuários</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<li th:classappend="${model} == 'client' ? active"><a href="/client">Cliente</a></li>
 				</ul>
 			</div>
 		</div>

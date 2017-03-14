@@ -38,14 +38,14 @@ public class User implements UserDetails {
 	@Column(name="password", nullable=false, length=60)
 	private String password;
 	
-	@Transient
-	private String confirmPassword;
-	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_roles", 
 			joinColumns = @JoinColumn(name = "user_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "roles_description", nullable = false, updatable = false))
 	private Set<Role> roles = new HashSet<>();
+	
+	@Transient
+	private String confirmPassword;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="ISO-8859-1"/>
-<title>Usuários</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-<script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<head th:replace="fragments/layout :: headerFragment(pageTitle='Usuários')">
 </head>
 <body>
 	<div th:replace="fragments/layout :: head"></div>

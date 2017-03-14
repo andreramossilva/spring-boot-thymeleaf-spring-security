@@ -25,9 +25,10 @@ import br.com.spring.boot.thymeleaf.spring.security.web.validation.UserValidatio
 
 @Controller
 @RequestMapping(value=UserActionConstants.ROOT_ACTION)
-public class UserController {
+public class UserController extends BasicController {
 	
 	private static final String ROLES = "roles";
+	protected static final String MODEL = "user";
 
 	@Autowired
 	private UserService userService;
@@ -42,7 +43,7 @@ public class UserController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView list(){
-		ModelAndView model = new ModelAndView(UserHtmlConstants.LIST);
+		ModelAndView model = getModel(MODEL, UserHtmlConstants.LIST);
 		List<User> users = userService.findAll();
 		model.addObject("users", users);
 		return model;
@@ -59,7 +60,7 @@ public class UserController {
 	}
 	
 	private ModelAndView viewUser(User user){
-		ModelAndView model = new ModelAndView(UserHtmlConstants.USER);
+		ModelAndView model = getModel(MODEL, UserHtmlConstants.USER);
 		
 		if(user.getId() != null){
 			model.addObject("user", user);

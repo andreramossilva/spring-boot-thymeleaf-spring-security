@@ -18,6 +18,7 @@ import br.com.spring.boot.thymeleaf.spring.security.core.repository.UserReposito
 import br.com.spring.boot.thymeleaf.spring.security.core.repository.impl.UserRepositoryImpl;
 import br.com.spring.boot.thymeleaf.spring.security.core.service.UserService;
 import br.com.spring.boot.thymeleaf.spring.security.core.service.impl.UserServiceImpl;
+import br.com.spring.boot.thymeleaf.spring.security.web.constants.action.ClientActionConstants;
 import br.com.spring.boot.thymeleaf.spring.security.web.constants.action.LoginActionConstants;
 import br.com.spring.boot.thymeleaf.spring.security.web.constants.action.LogoutActionConstants;
 import br.com.spring.boot.thymeleaf.spring.security.web.constants.action.UserActionConstants;
@@ -48,6 +49,10 @@ public class Configuration extends WebSecurityConfigurerAdapter {
 		.antMatchers(UserActionConstants.ROOT_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
 		.antMatchers(UserActionConstants.ADD_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
 		.antMatchers(UserActionConstants.EDIT_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
+		
+		.antMatchers(ClientActionConstants.ROOT_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
+		.antMatchers(ClientActionConstants.ADD_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
+		.antMatchers(ClientActionConstants.EDIT_ACTION).hasRole(RoleEnum.ROLE_ADMIN.getValue())
 		
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage(LoginActionConstants.LOGIN_ACTION).permitAll()
