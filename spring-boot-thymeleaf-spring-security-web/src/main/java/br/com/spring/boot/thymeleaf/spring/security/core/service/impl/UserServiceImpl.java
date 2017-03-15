@@ -24,12 +24,12 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 	
 	@Override
-	public UserDetails loadUserByUsername(String email) {
+	public UserDetails loadUserByUsername(final String email) {
 		return (UserDetails) userRepository.findByEmail(email); 
 	}
 		
 	@Override
-	public User findById(Integer id){
+	public User findById(final Integer id){
 		return userRepository.findOne(id);
 	}
 	
@@ -39,11 +39,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void save(User user) throws ServiceException, ValidationException {
+	public void save(User user, final boolean shouldChangePassword) throws ServiceException, ValidationException {
 		try{
 			
 			validate(user);
-			configPassword(user);
+			
+			if(shouldChangePassword){
+				configPassword(user);
+			}
+			
 			userRepository.save(user);
 			
 		} catch (ValidationException e) {
@@ -54,7 +58,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	private void configPassword(User user) {
-		if(user.getId() == null || !StringUtils.isEmptyOrWhitespace(user.getPassword())){
+		if(!StringUtils.isEmptyOrWhitespace(user.getPassword())){
 			BCryptPasswordEncoder crypt = new BCryptPasswordEncoder();
 			user.setPassword(crypt.encode(user.getPassword()));
 		} else {
@@ -64,7 +68,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findByEmail(String email) {
+	public User findByEmail(final String email) {
 		return (User) userRepository.findByEmail(email);
 	}
 	
@@ -77,6 +81,13 @@ public class UserServiceImpl implements UserService {
 			}
 		
 		}
+	}
+
+	@Override
+	public void changeStatus(final Integer id, final boolean status) throws ServiceException, ValidationException {
+		User user = findById(id);
+		user.setStatus(status);
+		save(user, false);
 	}
 
 }

@@ -32,6 +32,9 @@ public class User implements UserDetails {
 	@Column(name="name", nullable=false, length=256)
 	private String name;
 	
+	@Column(name="status", nullable=false)
+	private boolean status;
+	
 	@Column(name="email", nullable=false, length=128, unique=true)
 	private String email;
 	
@@ -100,6 +103,14 @@ public class User implements UserDetails {
 
 	public void setName(String name) {
 		this.name = name.trim();
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	public String getEmail() {

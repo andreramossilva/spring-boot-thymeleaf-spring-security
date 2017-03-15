@@ -20,9 +20,10 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
 	@Override
 	public UserDetails findByEmail(String email) {
 		
-		StringBuilder hql = new StringBuilder();
-		hql.append("from User u ");
-		hql.append("where u.email = :email");
+		StringBuilder hql = new StringBuilder()
+		.append("from User u ")
+		.append("where u.email = :email ")
+		.append("and u.status = 1 ");
 		
 		Query query = manager.createQuery(hql.toString());
 		query.setParameter("email", email);

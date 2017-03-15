@@ -1,3 +1,8 @@
+div.actions .action{
+	float:left;
+	margin-right: 6px;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
@@ -5,4 +10,18 @@
 .head-list-button{
 	margin-bottom: 10px;
     text-align: right;
+}
+
+.fieldError{
+	border-color: #990000;
+}
+
+.messageError{
+	color: #990000;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.sub-title{
+	font-size:20px;
 }

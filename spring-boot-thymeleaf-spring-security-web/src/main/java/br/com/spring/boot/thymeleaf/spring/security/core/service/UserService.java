@@ -10,9 +10,10 @@ import br.com.spring.boot.thymeleaf.spring.security.core.service.exceptions.Serv
 import br.com.spring.boot.thymeleaf.spring.security.core.service.exceptions.ValidationException;
 
 public interface UserService extends UserDetailsService {
-	UserDetails loadUserByUsername(String email);
+	UserDetails loadUserByUsername(final String email);
 	List<User> findAll();
-	void save(User user) throws ServiceException, ValidationException;
-	User findByEmail(String email);
-	User findById(Integer id);
+	void save(User user, final boolean shouldChangePassword) throws ServiceException, ValidationException;
+	void changeStatus(final Integer id, final boolean status) throws ServiceException, ValidationException;
+	User findByEmail(final String email);
+	User findById(final Integer id);
 }

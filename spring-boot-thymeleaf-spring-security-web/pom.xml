@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>br.com.spring.boot.thymeleaf.spring.security</groupId>
 		<artifactId>spring-boot-thymeleaf-spring-security</artifactId>
-		<version>2.0.0</version>
+		<version>1.0.0</version>
 	</parent>
 
 	<groupId>br.com.spring.boot.thymeleaf.spring.security.web</groupId>

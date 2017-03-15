@@ -19,21 +19,15 @@
 		</nav>
 	</div>
 	
-	<div th:fragment="menu" class="container-fluid">
-		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
-				<ul class="nav nav-sidebar">
-					<li th:classappend="${model} == 'user' ? active"><a href="/user">Usuários</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
-				<ul class="nav nav-sidebar">
-					<li th:classappend="${model} == 'client' ? active"><a href="/client">Cliente</a></li>
-				</ul>
-			</div>
-		</div>
+	<div th:fragment="menu" class="col-md-2 sidebar">
+		<ul class="nav nav-sidebar">
+			<li th:classappend="${model} == 'user' ? active">
+				<a href="/user">Usuários</a>
+			</li>
+			<li th:classappend="${model} == 'client' ? active">
+				<a href="/client">Clientes</a>
+			</li>
+		</ul>
 	</div>
 
 	<div th:fragment="footerFragment">

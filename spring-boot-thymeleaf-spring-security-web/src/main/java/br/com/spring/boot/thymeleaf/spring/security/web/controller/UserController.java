@@ -73,9 +73,9 @@ public class UserController extends BasicController {
 	@RequestMapping(method=RequestMethod.POST)
 	public ModelAndView save(@Valid User user, BindingResult result){
 		
-		if(!result.hasErrors()){
+		if(result == null || !result.hasErrors()){
 			try {
-				userService.save(user);
+				userService.save(user, true);
 				return list();
 			} catch (ValidationException e) {
 				result.rejectValue(e.getField() , e.getMessage());
@@ -87,6 +87,26 @@ public class UserController extends BasicController {
 			return viewUser(user);
 		}
 		
+	}
+
+	@RequestMapping(value=UserActionConstants.ACTIVE_ACTION, method=RequestMethod.GET)
+	public ModelAndView active(@PathVariable int id){
+		return activeInactiveUser(true, id);
+	}
+	
+	@RequestMapping(value=UserActionConstants.INACTIVE_ACTION, method=RequestMethod.GET)
+	public ModelAndView inactive(@PathVariable int id){
+		return activeInactiveUser(false, id);
+	}
+
+	private ModelAndView activeInactiveUser(boolean status, int id) {
+		try {
+			userService.changeStatus(id, status);
+		} catch (ServiceException | ValidationException e) {
+			//TODO: implementar visualização de validações na lista
+			e.printStackTrace();
+		}
+		return list();
 	}
 	
 }
